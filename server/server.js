@@ -8,11 +8,11 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 
 
-app.get('/user', (req, res) => {
+app.get('/users', (req, res) => {
     res.json('get user')
 })
 
-app.post('/user', (req, res) => {
+app.post('/users', (req, res) => {
     let body = req.body
     
     if(!body.name){
@@ -27,7 +27,7 @@ app.post('/user', (req, res) => {
     } 
 })
 
-app.put('/user/:id', (req, res) => {
+app.put('/users/:id', (req, res) => {
     let id = req.params.id
 
     res.json({
@@ -36,7 +36,7 @@ app.put('/user/:id', (req, res) => {
     })
 })
 
-app.delete('/user', (req, res) => {
+app.delete('/users', (req, res) => {
     res.json('delete user')
 })
 
