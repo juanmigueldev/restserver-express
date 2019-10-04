@@ -1,45 +1,28 @@
-require('../config/config')
+require('./config/config')
 
 const express = require('express')
+const mongoose = require('mongoose');
 const app = express()
 
-
+// parse application/json
 app.use(express.json())
+
+// parse application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: false }))
 
+app.use(require('./routes/users'))
 
-app.get('/users', (req, res) => {
-    res.json('get user')
-})
+mongoose.connect(
+  process.env.dbUrl,
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true
+  })
+  .then(() => console.log("Successfully connection to DB"))
+  .catch((err) => console.log(err))
 
-app.post('/users', (req, res) => {
-    let body = req.body
-    
-    if(!body.name){
-        res.status(400).json({
-            ok: false,
-            message: 'Name is required'
-        })
-    }else{
-        res.json({
-            body
-        })
-    } 
-})
-
-app.put('/users/:id', (req, res) => {
-    let id = req.params.id
-
-    res.json({
-        id,
-        user: 'test'
-    })
-})
-
-app.delete('/users', (req, res) => {
-    res.json('delete user')
-})
 
 app.listen(process.env.PORT, () => {
-    console.log(`Server listening on port ${process.env.PORT }`);
+    console.log(`Server listening on port ${process.env.PORT}`);
 })
