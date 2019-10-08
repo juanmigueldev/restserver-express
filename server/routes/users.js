@@ -1,11 +1,12 @@
 const express = require('express')
 const app = express()
 const bcrypt = require('bcrypt')
-const User = require('../models/user')
 const _ = require('underscore')
+const User = require('../models/user')
+const { verifyToken, verifyAdminRole } = require('../middlewares/auth')
 
 
-app.get('/users', (req, res) => {
+app.get('/users',  verifyToken, (req, res) => {
 
     let from = req.query.from || 0
     from = Number(from)
@@ -24,7 +25,7 @@ app.get('/users', (req, res) => {
                 })
             }
 
-            User.count({ active:true }, (err, count) => {
+            User.countDocuments({ active:true }, (err, count) => {
                 res.json({
                     ok: true,
                     total: count,
@@ -34,7 +35,7 @@ app.get('/users', (req, res) => {
         })
 })
 
-app.post('/users', (req, res) => {
+app.post('/users', [verifyToken, verifyAdminRole], (req, res) => {
     let body = req.body
 
     // creates a new instace of User schema
@@ -60,7 +61,7 @@ app.post('/users', (req, res) => {
     })
 })
 
-app.put('/users/:id', (req, res) => {
+app.put('/users/:id', [verifyToken, verifyAdminRole], (req, res) => {
     let id = req.params.id
     let body = _.pick(req.body, ['name', 'email', 'image', 'role', 'active'])
     let options = {
@@ -85,7 +86,7 @@ app.put('/users/:id', (req, res) => {
     })
 })
 
-app.delete('/users/:id', (req, res) => {
+app.delete('/users/:id', [verifyToken, verifyAdminRole], (req, res) => {
     let id = req.params.id
 
     User.findByIdAndUpdate(id, { active : false}, {new: true}, (err, userdb) => {

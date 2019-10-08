@@ -10,8 +10,11 @@ app.use(express.json())
 // parse application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: false }))
 
-app.use(require('./routes/users'))
+// global routes config 
+app.use(require('./routes/index'))
 
+
+// mongoose connect
 mongoose.connect(
   process.env.dbUrl,
   {

@@ -24,3 +24,17 @@ else
     databaseUrl = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0-itb8s.mongodb.net/coffee`
 
 process.env.dbUrl = databaseUrl
+
+
+
+//==========================
+// TOKEN EXPIRED TIME 
+//==========================
+process.env.TOKEN_EXPIRATION = process.env.TOKEN_EXPIRATION
+
+
+
+//==========================
+// SEED SIGNATURE 
+//==========================
+process.env.TOKEN_SEED_SIGNATURE = process.env.TOKEN_SEED_SIGNATURE
