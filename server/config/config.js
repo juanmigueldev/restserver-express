@@ -26,15 +26,19 @@ else
 process.env.dbUrl = databaseUrl
 
 
-
 //==========================
 // TOKEN EXPIRED TIME 
 //==========================
 process.env.TOKEN_EXPIRATION = process.env.TOKEN_EXPIRATION
 
 
-
 //==========================
 // SEED SIGNATURE 
 //==========================
 process.env.TOKEN_SEED_SIGNATURE = process.env.TOKEN_SEED_SIGNATURE
+
+
+//==========================
+// GOOGLE CLIENT ID 
+//==========================
+process.env.GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID

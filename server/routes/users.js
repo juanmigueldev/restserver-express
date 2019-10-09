@@ -48,7 +48,7 @@ app.post('/users', [verifyToken, verifyAdminRole], (req, res) => {
 
     user.save((err, userdb) => {
         if (err) {
-            return res.status(400).json({
+            return res.status(500).json({
                 ok: false,
                 err
             })

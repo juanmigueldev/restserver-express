@@ -2,6 +2,7 @@ require('./config/config')
 
 const express = require('express')
 const mongoose = require('mongoose');
+const path = require('path')
 const app = express()
 
 // parse application/json
@@ -9,6 +10,12 @@ app.use(express.json())
 
 // parse application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: false }))
+
+
+// Enable public forder
+app.use(express.static(path.resolve(__dirname, '../public')))
+
+console.log(path.resolve(__dirname, '../public'))
 
 // global routes config 
 app.use(require('./routes/index'))
