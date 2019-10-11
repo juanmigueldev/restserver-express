@@ -46,7 +46,7 @@ app.post('/users', [verifyToken, verifyAdminRole], (req, res) => {
         role: body.role
     })
 
-    user.save((err, userdb) => {
+    user.save((err, userDB) => {
         if (err) {
             return res.status(500).json({
                 ok: false,
@@ -54,9 +54,9 @@ app.post('/users', [verifyToken, verifyAdminRole], (req, res) => {
             })
         }
 
-        res.json({
+        res.status(201).json({
             ok: true,
-            user: userdb
+            user: userDB
         })
     })
 })
@@ -70,9 +70,16 @@ app.put('/users/:id', [verifyToken, verifyAdminRole], (req, res) => {
         context: 'query'
     }
 
-    User.findByIdAndUpdate(id, body, options, (err, userdb) => {
+    User.findByIdAndUpdate(id, body, options, (err, userDB) => {
 
         if (err) {
+            return res.status(500).json({
+                ok: false,
+                err
+            })
+        }
+
+        if (!userDB) {
             return res.status(400).json({
                 ok: false,
                 err
@@ -81,7 +88,7 @@ app.put('/users/:id', [verifyToken, verifyAdminRole], (req, res) => {
 
         res.json({
             ok: true,
-            user: userdb
+            user: userDB
         })
     })
 })
@@ -89,7 +96,7 @@ app.put('/users/:id', [verifyToken, verifyAdminRole], (req, res) => {
 app.delete('/users/:id', [verifyToken, verifyAdminRole], (req, res) => {
     let id = req.params.id
 
-    User.findByIdAndUpdate(id, { active : false}, {new: true}, (err, userdb) => {
+    User.findByIdAndUpdate(id, { active : false}, {new: true}, (err, userDB) => {
 
         if (err) {
             return res.status(400).json({
@@ -100,7 +107,7 @@ app.delete('/users/:id', [verifyToken, verifyAdminRole], (req, res) => {
 
         res.json({
             ok: true,
-            user: userdb
+            user: userDB
         })
     })
 

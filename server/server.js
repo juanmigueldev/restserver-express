@@ -12,7 +12,6 @@ app.use(express.json())
 // parse application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: false }))
 
-
 // Enable public forder
 // app.use(express.static(path.resolve(__dirname, '../public')))
 
@@ -35,7 +34,8 @@ mongoose.connect(
   {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    useCreateIndex: true
+    useCreateIndex: true,
+    useFindAndModify: false
   })
   .then(() => console.log("Successfully connection to DB"))
   .catch((err) => console.log(err))
