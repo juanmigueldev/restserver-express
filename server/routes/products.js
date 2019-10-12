@@ -14,7 +14,7 @@ app.get('/products/search/:query', AuthMiddleWare.verifyToken, (req, res) => {
 
     Product.find({ name: regex})
         .populate('category','description')
-        .populate('creatorUser', 'name email')
+        .populate('creatorUser', 'name email image')
         .exec((err, products) => {
             if (err) {
                 return res.status(500).json({
@@ -43,7 +43,7 @@ app.get('/products', AuthMiddleWare.verifyToken, (req, res) => {
         .skip(from)
         .limit(pagesize)
         .populate('category', 'description')
-        .populate('creatorUser', 'name email')
+        .populate('creatorUser', 'name email image')
         .exec((err, products) => {
             if (err) {
                 return res.status(500).json({
@@ -66,7 +66,7 @@ app.get('/products/:id', AuthMiddleWare.verifyToken, (req, res) => {
 
     Product.findById(req.params.id)
         .populate('category','description')
-        .populate('creatorUser', 'name email')
+        .populate('creatorUser', 'name email image')
         .exec((err, product) => {
             if (err) {
                 return res.status(500).json({

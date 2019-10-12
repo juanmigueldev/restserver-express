@@ -127,6 +127,7 @@ app.post('/google', async (req, res) => {
                 name: googleUser.name,
                 email: googleUser.email,                
                 google: googleUser.google,
+                image: googleUser.image,
                 password: 'google'
             })
 

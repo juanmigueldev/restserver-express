@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken')
 // Token verification
 const verifyToken = (req, res, next) => {
 
-    let token = req.get('Authorization')
+    let token = req.query.token ? req.query.token : req.get('Authorization')
 
     if(!token){
         return res.status(401).json({

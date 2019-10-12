@@ -14,7 +14,7 @@ app.get('/users',  verifyToken, (req, res) => {
     page = Number(page)
 
     User.find({active: true})
-        .select('name email role google')
+        .select('name email role google image')
         .skip(from)
         .limit(page)
         .exec((err, users) => {
