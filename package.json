@@ -17,6 +17,7 @@
     "google-auth-library": "^5.4.0",
     "hbs": "^4.0.5",
     "jsonwebtoken": "^8.5.1",
+    "mkdirp": "^0.5.1",
     "mongoose": "^5.7.3",
     "mongoose-unique-validator": "^2.0.3",
     "underscore": "^1.9.1"

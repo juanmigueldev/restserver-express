@@ -3,6 +3,7 @@ const fileUpload = require('express-fileupload')
 const app = express()
 const fs = require('fs')
 const path = require('path')
+const mkdirp = require('mkdirp')
 
 
 // Middlewares
@@ -60,8 +61,14 @@ app.put('/upload/:type/:id', AuthMiddleWare.verifyToken, (req, res) => {
     }
 
     let fileName = `${id}-${new Date().getMilliseconds()}.${fileExtension}`
+    let uploadsDir = `./uploads/${type}`
 
-    file.mv(`./uploads/${type}/${fileName}`)
+    // Creates upload folder if not exist
+    if(!fs.existsSync(uploadsDir))
+        mkdirp.sync(uploadsDir)
+
+
+    file.mv(`${uploadsDir}/${fileName}`)
         .then(response => {
 
             if (type === "users")
